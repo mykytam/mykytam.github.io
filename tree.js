@@ -392,7 +392,13 @@ async function buildTree(jwt, familyId) {
       .attr('class', 'node')
       .attr('r', 1e-6)
       .style('fill', function (d) {
-        return is_extendable(d) ? 'lightsteelblue' : '#fff';
+        if (is_extendable(d)) {
+          return d.data.gender === 'Male' ? 'lightsteelblue' : '#ffdee9';
+        }
+        return '#fff';
+      })
+      .style('stroke', function (d) {
+        return d.data.gender === 'Male' ? 'steelblue' : 'pink';
       });
 
     // Add names as node labels
@@ -429,7 +435,10 @@ async function buildTree(jwt, familyId) {
       .select('circle.node')
       .attr('r', (d) => 10 * !d.data.isUnion + 0 * d.data.isUnion)
       .style('fill', function (d) {
-        return is_extendable(d) ? 'lightsteelblue' : '#fff';
+        if (is_extendable(d)) {
+          return d.data.gender === 'Male' ? 'lightsteelblue' : '#ffdee9';
+        }
+        return '#fff';
       })
       .attr('cursor', 'pointer');
 
